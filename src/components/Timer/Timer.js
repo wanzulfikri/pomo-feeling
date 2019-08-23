@@ -6,7 +6,14 @@ import timerDingURL from "../../media/timerEnds.wav";
 const timerDingSound = new Audio(timerDingURL);
 
 function Timer(props) {
-  const { isTimerRunning, timerDuration, setTimerRunning, isOnBreak } = props;
+  const {
+    isTimerRunning,
+    timerDuration,
+    setTimerRunning,
+    isOnBreak,
+    setPlanMode,
+    isPlanMode
+  } = props;
   TimerRunner(props);
   return (
     <div>
@@ -15,6 +22,8 @@ function Timer(props) {
         setTimerRunning={setTimerRunning}
         isTimerRunning={isTimerRunning}
         isOnBreak={isOnBreak}
+        isPlanMode={isPlanMode}
+        setPlanMode={setPlanMode}
       />
     </div>
   );
@@ -28,7 +37,9 @@ Timer.propTypes = {
   setOnBreak: PropTypes.func.isRequired,
   isOnBreak: PropTypes.bool.isRequired,
   workDuration: PropTypes.number.isRequired,
-  breakDuration: PropTypes.number.isRequired
+  breakDuration: PropTypes.number.isRequired,
+  isPlanMode: PropTypes.bool.isRequired,
+  setPlanMode: PropTypes.func.isRequired
 };
 
 function TimerRunner(props) {
@@ -67,13 +78,33 @@ TimerDisplay.propTypes = {
   timerDuration: PropTypes.number.isRequired
 };
 
-function TimerButton({ setTimerRunning, isTimerRunning, isOnBreak }) {
+function TimerButton(props) {
+  const {
+    setTimerRunning,
+    isTimerRunning,
+    isOnBreak,
+    isPlanMode,
+    setPlanMode
+  } = props;
   return (
-    <button onClick={() => setTimerRunning(!isTimerRunning)}>
+    <button
+      onClick={() => {
+        setTimerRunning(!isTimerRunning);
+        if (isPlanMode) setPlanMode(false);
+      }}
+    >
       {selectButtonDisplay(isTimerRunning, isOnBreak)}
     </button>
   );
 }
+
+TimerButton.propTypes = {
+  setTimerRunning: PropTypes.func.isRequired,
+  isTimerRunning: PropTypes.bool.isRequired,
+  isOnBreak: PropTypes.bool.isRequired,
+  isPlanMode: PropTypes.bool.isRequired,
+  setPlanMode: PropTypes.func.isRequired
+};
 
 function selectButtonDisplay(isTimerRunning, isOnBreak) {
   if (isOnBreak) {
@@ -90,9 +121,5 @@ function selectButtonDisplay(isTimerRunning, isOnBreak) {
     }
   }
 }
-
-TimerButton.propTypes = {
-  setTimerRunning: PropTypes.func.isRequired
-};
 
 export default Timer;

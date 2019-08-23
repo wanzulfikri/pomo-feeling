@@ -1,21 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Status({ isOnBreak, isTimerRunning }) {
+function Status(props) {
   return (
     <div>
-      <StatusDisplay isOnBreak={isOnBreak} isTimerRunning={isTimerRunning} />
+      <StatusDisplay {...props} />
     </div>
   );
 }
 
 Status.propTypes = {
   isOnBreak: PropTypes.bool.isRequired,
-  isTimerRunning: PropTypes.bool.isRequired
+  isTimerRunning: PropTypes.bool.isRequired,
+  isPlanMode: PropTypes.bool.isRequired
 };
 
-function StatusDisplay({ isOnBreak, isTimerRunning }) {
-  const currentStatus = selectStatusDisplay(isOnBreak, isTimerRunning);
+function StatusDisplay(props) {
+  const currentStatus = selectStatusDisplay(props);
   return <p>{currentStatus}</p>;
 }
 
@@ -24,13 +25,19 @@ StatusDisplay.propTypes = {
   isTimerRunning: PropTypes.bool.isRequired
 };
 
-function selectStatusDisplay(isOnBreak, isTimerRunning) {
-  if (isOnBreak) {
-    return "Break";
+function selectStatusDisplay(props) {
+  const { isOnBreak, isTimerRunning, isPlanMode } = props;
+  if (isPlanMode) {
+    return "Plan";
+  } else if (isOnBreak) {
+    if (isTimerRunning) {
+      return "Break";
+    }
+    return "Break  (Paused)";
   } else if (isTimerRunning) {
     return "Work";
   } else {
-    return "Plan/Pause";
+    return "Work (Paused)";
   }
 }
 
