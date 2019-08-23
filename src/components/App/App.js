@@ -5,21 +5,18 @@ import Motivation from "../Motivation/Motivation";
 import Reset from "../Reset/Reset";
 
 function App() {
-  const isDebugMode = true;
+  const isDebugMode = false;
+  const debugMultiplier = isDebugMode ? 0.1 : 1;
   const MINUTES = 60 * 1000;
   const [workDuration, setWorkDuration] = useState(
-    (isDebugMode ? 0.1 : 25) * MINUTES
+    debugMultiplier * 1 * MINUTES
   );
   const [breakDuration, setBreakDuration] = useState(
-    (isDebugMode ? 0.05 : 5) * MINUTES
+    debugMultiplier * 5 * MINUTES
   );
   const [isOnBreak, setOnBreak] = useState(false);
   const [isTimerRunning, setTimerRunning] = useState(false);
-  const [timerDuration, setTimerDuration] = useState(
-    (isDebugMode ? 0.1 : workDuration) * MINUTES
-  );
-  // TODO: isPlanMode allows user to change motivation level and timer duration
-  // it can be reset if user's motivation level changes
+  const [timerDuration, setTimerDuration] = useState(workDuration);
   const [isPlanMode, setPlanMode] = useState(true);
 
   return (
@@ -27,6 +24,8 @@ function App() {
       <Motivation
         setWorkDuration={setWorkDuration}
         setTimerDuration={setTimerDuration}
+        isPlanMode={isPlanMode}
+        debugMultiplier={debugMultiplier}
       />
       <Status
         isOnBreak={isOnBreak}
@@ -45,7 +44,12 @@ function App() {
         isPlanMode={isPlanMode}
         setPlanMode={setPlanMode}
       />
-      <Reset />
+      <Reset
+        setPlanMode={setPlanMode}
+        setTimerRunning={setTimerRunning}
+        workDuration={workDuration}
+        setTimerDuration={setTimerDuration}
+      />
     </div>
   );
 }

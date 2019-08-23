@@ -4,20 +4,25 @@ import PropTypes from "prop-types";
 export default function Motivation(props) {
   return (
     <div>
-      <SelectMotivationLevel props={props} />
+      <SelectMotivationLevel {...props} />
     </div>
   );
 }
 
 Motivation.propTypes = {
   setWorkDuration: PropTypes.func.isRequired,
-  setTimerDuration: PropTypes.func.isRequired
+  setTimerDuration: PropTypes.func.isRequired,
+  isPlanMode: PropTypes.bool.isRequired
 };
 
-function SelectMotivationLevel({ props }) {
+function SelectMotivationLevel(props) {
+  const { isPlanMode, debugMultiplier } = props;
   return (
-    <select onClick={event => handleMotivationOptionClick(event, props)}>
-      {generateMotivationOptionElements()}
+    <select
+      disabled={!isPlanMode}
+      onClick={event => handleMotivationOptionClick(event, props)}
+    >
+      {generateMotivationOptionElements(debugMultiplier)}
     </select>
   );
 }
@@ -29,10 +34,14 @@ function handleMotivationOptionClick(event, props) {
   setTimerDuration(clickedMotivationOption);
 }
 
-function generateMotivationOptionElements() {
+function generateMotivationOptionElements(debugMultiplier) {
   let MotivationOptionElements = MOTIVATIONOPTIONSMINUTESLIST.map(
     (element, index) => (
-      <option default key={element} value={element * 1000 * 60}>
+      <option
+        default
+        key={element}
+        value={debugMultiplier * element * 1000 * 60}
+      >
         {index}
       </option>
     )
