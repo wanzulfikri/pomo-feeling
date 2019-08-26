@@ -52,15 +52,15 @@ function generateMotivationOptionElements(debugMultiplier) {
 }
 
 const MOTIVATIONOPTIONSMINUTESLIST = [
-  1,
-  2.5,
-  5.0,
-  7.5,
-  10.0,
-  12.5,
-  15.0,
-  17.5,
-  20.0,
-  22.5,
-  25.0
+  5,
+  10,
+  15,
+  20,
+  25,
+  35,
+  45,
+  50,
+  60,
+  75,
+  90
 ];
