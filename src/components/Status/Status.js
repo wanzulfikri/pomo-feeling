@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import "./Status.css";
 function Status(props) {
   return (
     <div>
@@ -17,7 +17,11 @@ Status.propTypes = {
 
 function StatusDisplay(props) {
   const currentStatus = selectStatusDisplay(props);
-  return <p>{currentStatus}</p>;
+  return (
+    <p className="curretStatusLabel">
+      <strong>{currentStatus}</strong>
+    </p>
+  );
 }
 
 StatusDisplay.propTypes = {

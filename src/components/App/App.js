@@ -3,6 +3,7 @@ import Timer from "../Timer/Timer";
 import Status from "../Status/Status";
 import Motivation from "../Motivation/Motivation";
 import Reset from "../Reset/Reset";
+import "./App.css";
 
 function App() {
   const isDebugMode = false;
@@ -20,13 +21,22 @@ function App() {
   const [isPlanMode, setPlanMode] = useState(true);
 
   return (
-    <div className="App">
+    <div className={setAppComponentCSSClass(isPlanMode, isOnBreak)}>
       <Motivation
         setWorkDuration={setWorkDuration}
         setTimerDuration={setTimerDuration}
         isPlanMode={isPlanMode}
         debugMultiplier={debugMultiplier}
       />
+      <Reset
+        setPlanMode={setPlanMode}
+        setTimerRunning={setTimerRunning}
+        workDuration={workDuration}
+        setTimerDuration={setTimerDuration}
+        isPlanMode={isPlanMode}
+        setOnBreak={setOnBreak}
+      />
+      <hr />
       <Status
         isOnBreak={isOnBreak}
         isTimerRunning={isTimerRunning}
@@ -44,14 +54,19 @@ function App() {
         isPlanMode={isPlanMode}
         setPlanMode={setPlanMode}
       />
-      <Reset
-        setPlanMode={setPlanMode}
-        setTimerRunning={setTimerRunning}
-        workDuration={workDuration}
-        setTimerDuration={setTimerDuration}
-      />
     </div>
   );
+}
+
+function setAppComponentCSSClass(isPlanMode, isOnBreak) {
+  let className = "App ";
+  if (isPlanMode) {
+    return className + "neutral-state";
+  } else if (isOnBreak) {
+    return className + "break-state";
+  } else {
+    return className + "work-state";
+  }
 }
 
 export default App;

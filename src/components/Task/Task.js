@@ -1,6 +1,6 @@
 import React from "react";
 
-function Task({ isTimerRunning, timerDuration }) {
+function Task() {
   return (
     <div>
       Task: <input type="text" disabled={isTimerRunning && timerDuration} />

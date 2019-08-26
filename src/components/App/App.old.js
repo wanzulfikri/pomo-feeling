@@ -48,7 +48,6 @@ function App() {
     >
       {/* REFACTORING TASK */}
       <Task />
-
       <div>
         Feel:
         <select

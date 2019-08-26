@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./Motivation.css";
 
 export default function Motivation(props) {
   return (
     <div>
+      <p className="motivationSelectorLabel">Motivation Level: </p>
       <SelectMotivationLevel {...props} />
     </div>
   );
@@ -20,14 +22,14 @@ function SelectMotivationLevel(props) {
   return (
     <select
       disabled={!isPlanMode}
-      onClick={event => handleMotivationOptionClick(event, props)}
+      onChange={event => handleMotivationOptionChange(event, props)}
     >
       {generateMotivationOptionElements(debugMultiplier)}
     </select>
   );
 }
 
-function handleMotivationOptionClick(event, props) {
+function handleMotivationOptionChange(event, props) {
   const { setWorkDuration, setTimerDuration } = props;
   const clickedMotivationOption = Number(event.target.value);
   setWorkDuration(clickedMotivationOption);

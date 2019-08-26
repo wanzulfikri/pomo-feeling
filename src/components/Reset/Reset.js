@@ -13,16 +13,20 @@ Reset.propTypes = {
   setPlanMode: PropTypes.func.isRequired,
   setTimerRunning: PropTypes.func.isRequired,
   setTimerDuration: PropTypes.func.isRequired,
-  workDuration: PropTypes.number.isRequired
+  workDuration: PropTypes.number.isRequired,
+  isPlanMode: PropTypes.bool.isRequired,
+  setOnBreak: PropTypes.func.isRequired
 };
 
 function ResetButton(props) {
+  const { isPlanMode } = props;
   return (
     <button
       title="Resets the timer and motivation level."
       onClick={() => {
         resetToDefault(props);
       }}
+      disabled={isPlanMode}
     >
       I feel different...
     </button>
@@ -34,11 +38,13 @@ function resetToDefault(props) {
     setPlanMode,
     setTimerRunning,
     setTimerDuration,
-    workDuration
+    workDuration,
+    setOnBreak
   } = props;
   setPlanMode(true);
   setTimerRunning(false);
   setTimerDuration(workDuration);
+  setOnBreak(false);
 }
 
 export default Reset;

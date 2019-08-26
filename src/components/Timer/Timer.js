@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { getMinutesAndSeconds, useInterval } from "../../utilities/helper";
 import timerDingURL from "../../media/timerEnds.wav";
+import "./Timer.css";
 
 const timerDingSound = new Audio(timerDingURL);
 
@@ -71,7 +72,7 @@ function timerIntervalFunction(props) {
 }
 
 function TimerDisplay({ timerDuration }) {
-  return <p>{getMinutesAndSeconds(timerDuration)}</p>;
+  return <p className="timerDigits">{getMinutesAndSeconds(timerDuration)}</p>;
 }
 
 TimerDisplay.propTypes = {
