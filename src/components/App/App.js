@@ -10,7 +10,7 @@ function App() {
   const debugMultiplier = isDebugMode ? 0.1 : 1;
   const MINUTES = 60 * 1000;
   const [workDuration, setWorkDuration] = useState(
-    debugMultiplier * 1 * MINUTES
+    debugMultiplier * 5 * MINUTES
   );
   const [breakDuration, setBreakDuration] = useState(
     debugMultiplier * 5 * MINUTES

@@ -64,7 +64,6 @@ function timerIntervalFunction(props) {
     setTimerDuration(timerDuration - 1000);
   } else {
     timerDingSound.play();
-    // setTimerRunning(false);
     setOnBreak(!isOnBreak);
     const currentTimerDuration = !isOnBreak ? breakDuration : workDuration;
     setTimerDuration(currentTimerDuration);
