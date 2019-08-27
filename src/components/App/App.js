@@ -13,7 +13,7 @@ function App() {
     debugMultiplier * 5 * MINUTES
   );
   const [breakDuration, setBreakDuration] = useState(
-    debugMultiplier * 5 * MINUTES
+    debugMultiplier * 1 * MINUTES
   );
   const [isOnBreak, setOnBreak] = useState(false);
   const [isTimerRunning, setTimerRunning] = useState(false);
@@ -27,6 +27,7 @@ function App() {
         setTimerDuration={setTimerDuration}
         isPlanMode={isPlanMode}
         debugMultiplier={debugMultiplier}
+        setBreakDuration={setBreakDuration}
       />
       <Reset
         setPlanMode={setPlanMode}
