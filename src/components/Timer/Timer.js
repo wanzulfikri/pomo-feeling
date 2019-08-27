@@ -168,7 +168,6 @@ function skipTimer(props) {
   } = props;
   const newDuration = isOnBreak ? workDuration : breakDuration;
   setOnBreak(!isOnBreak);
-  debugger;
   setTimerDuration(newDuration);
 }
 

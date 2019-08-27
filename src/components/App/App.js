@@ -3,12 +3,13 @@ import Timer from "../Timer/Timer";
 import Status from "../Status/Status";
 import Motivation from "../Motivation/Motivation";
 import Reset from "../Reset/Reset";
+import { MINUTES } from "../../constants";
 import "./App.css";
 
 function App() {
   const isDebugMode = false;
   const debugMultiplier = isDebugMode ? 0.1 : 1;
-  const MINUTES = 60 * 1000;
+
   const [workDuration, setWorkDuration] = useState(
     debugMultiplier * 5 * MINUTES
   );

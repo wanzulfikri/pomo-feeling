@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { MINUTES } from "../../constants";
 import "./Motivation.css";
 
 export default function Motivation(props) {
@@ -54,7 +55,8 @@ function handleMotivationOptionChange(event, props) {
   setSelectedMotivationOptionIndex(clickedMotivationIndex);
   setWorkDuration(clickedMotivationOption);
   setBreakDuration(
-    MOTIVATIONOPTIONSMINUTESLIST[clickedMotivationIndex][breakIndexInArray]
+    MOTIVATIONOPTIONSMINUTESLIST[clickedMotivationIndex][breakIndexInArray] *
+      MINUTES
   );
   setTimerDuration(clickedMotivationOption);
 }
@@ -62,7 +64,7 @@ function handleMotivationOptionChange(event, props) {
 function generateMotivationOptionElements(debugMultiplier) {
   let MotivationOptionElements = MOTIVATIONOPTIONSMINUTESLIST.map(
     (element, index) => {
-      const value = debugMultiplier * element[0] * 1000 * 60;
+      const value = debugMultiplier * element[0] * MINUTES;
       return (
         <option default key={element} index={index} value={value}>
           {index}
