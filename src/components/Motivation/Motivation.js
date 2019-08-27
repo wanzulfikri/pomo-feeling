@@ -9,7 +9,7 @@ export default function Motivation(props) {
   ] = useState(0);
   return (
     <div>
-      <p className="motivationSelectorLabel">Motivation Level: </p>
+      <p className="motivationSelectorLabel">Motivation: </p>
       <SelectMotivationLevel
         {...props}
         setSelectedMotivationOptionIndex={setSelectedMotivationOptionIndex}

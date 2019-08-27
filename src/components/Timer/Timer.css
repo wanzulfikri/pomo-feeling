@@ -1,3 +1,15 @@
 .timerDigits {
   font-size: 3rem;
 }
+
+.toggleTimerButton {
+  height: 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.skipTimerButton {
+  display: block;
+  margin: 10px auto;
+  cursor: pointer;
+}

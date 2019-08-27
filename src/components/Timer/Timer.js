@@ -10,21 +10,33 @@ function Timer(props) {
   const {
     isTimerRunning,
     timerDuration,
+    workDuration,
+    breakDuration,
     setTimerRunning,
     isOnBreak,
     setPlanMode,
-    isPlanMode
+    isPlanMode,
+    setTimerDuration,
+    setOnBreak
   } = props;
   TimerRunner(props);
   return (
     <div>
       <TimerDisplay timerDuration={timerDuration} />
-      <TimerButton
+      <ToggleTimerButton
         setTimerRunning={setTimerRunning}
         isTimerRunning={isTimerRunning}
         isOnBreak={isOnBreak}
         isPlanMode={isPlanMode}
         setPlanMode={setPlanMode}
+      />
+      <SkipTimerButton
+        setTimerDuration={setTimerDuration}
+        isOnBreak={isOnBreak}
+        workDuration={workDuration}
+        breakDuration={breakDuration}
+        setOnBreak={setOnBreak}
+        isPlanMode={isPlanMode}
       />
     </div>
   );
@@ -53,7 +65,6 @@ function TimerRunner(props) {
 function timerIntervalFunction(props) {
   const {
     timerDuration,
-    setTimerRunning,
     setTimerDuration,
     setOnBreak,
     isOnBreak,
@@ -78,7 +89,7 @@ TimerDisplay.propTypes = {
   timerDuration: PropTypes.number.isRequired
 };
 
-function TimerButton(props) {
+function ToggleTimerButton(props) {
   const {
     setTimerRunning,
     isTimerRunning,
@@ -88,17 +99,18 @@ function TimerButton(props) {
   } = props;
   return (
     <button
+      className="toggleTimerButton"
       onClick={() => {
         setTimerRunning(!isTimerRunning);
         if (isPlanMode) setPlanMode(false);
       }}
     >
-      {selectButtonDisplay(isTimerRunning, isOnBreak)}
+      {selectToggleButtonDisplay(isTimerRunning, isOnBreak)}
     </button>
   );
 }
 
-TimerButton.propTypes = {
+ToggleTimerButton.propTypes = {
   setTimerRunning: PropTypes.func.isRequired,
   isTimerRunning: PropTypes.bool.isRequired,
   isOnBreak: PropTypes.bool.isRequired,
@@ -106,7 +118,7 @@ TimerButton.propTypes = {
   setPlanMode: PropTypes.func.isRequired
 };
 
-function selectButtonDisplay(isTimerRunning, isOnBreak) {
+function selectToggleButtonDisplay(isTimerRunning, isOnBreak) {
   if (isOnBreak) {
     if (isTimerRunning) {
       return "Pause Break";
@@ -119,6 +131,52 @@ function selectButtonDisplay(isTimerRunning, isOnBreak) {
     } else {
       return "Start Work";
     }
+  }
+}
+
+function SkipTimerButton(props) {
+  const { isOnBreak, isPlanMode } = props;
+  return (
+    <button
+      className="skipTimerButton"
+      onClick={() => {
+        skipTimer(props);
+      }}
+      disabled={isPlanMode}
+    >
+      {selectSkipButtonDisplay(isOnBreak)}
+    </button>
+  );
+}
+
+SkipTimerButton.propTypes = {
+  workDuration: PropTypes.number.isRequired,
+  breakDuration: PropTypes.number.isRequired,
+  setTimerDuration: PropTypes.func.isRequired,
+  isOnBreak: PropTypes.bool.isRequired,
+  setOnBreak: PropTypes.func.isRequired,
+  isPlanMode: PropTypes.bool.isRequired
+};
+
+function skipTimer(props) {
+  const {
+    isOnBreak,
+    workDuration,
+    breakDuration,
+    setTimerDuration,
+    setOnBreak
+  } = props;
+  const newDuration = isOnBreak ? workDuration : breakDuration;
+  setOnBreak(!isOnBreak);
+  debugger;
+  setTimerDuration(newDuration);
+}
+
+function selectSkipButtonDisplay(isOnBreak) {
+  if (isOnBreak) {
+    return "Skip Break";
+  } else {
+    return "Skip Work";
   }
 }
 
