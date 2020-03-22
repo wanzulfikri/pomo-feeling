@@ -1,1 +1,1 @@
-# Pomodoro Feeling Timer
+# Feeling-based Pomodoro Timer
